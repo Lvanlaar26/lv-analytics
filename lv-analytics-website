@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="LV Analytics — Analytics engineering on retainer for growing businesses. Microsoft Fabric, Power BI, and Azure expertise without the full-time hire.">
+<title>LV Analytics — Luke VanLaar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:    #1C1815;
+  --panel:    #2A241F;
+  --panel2:   #332C26;
+  --orange:   #FF6B35;
+  --orange-d: rgba(255,107,53,0.12);
+  --orange-m: rgba(255,107,53,0.25);
+  --white:    #FDF8F3;
+  --muted:    #C2B3A3;
+  --dim:      #7A6E66;
+  --border:   rgba(253,248,243,0.07);
+  --r:        12px;
+  --max:      1100px;
+  --gutter:   clamp(24px, 5vw, 64px);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'IBM Plex Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+/* ── UTILITIES ─────────────────────────────────── */
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.orange { color: var(--orange); }
+.mono { font-family: 'IBM Plex Mono', monospace; }
+
+/* ── NAV ───────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 0;
+  background: rgba(28,24,21,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: padding 0.3s ease;
+}
+.nav-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-logo-mark {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+.nav-logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+.nav-logo-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.01em;
+}
+.nav-logo-sub {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--dim);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-cta {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--black) !important;
+  background: var(--orange);
+  padding: 8px 18px;
+  border-radius: 999px;
+  transition: opacity 0.2s, transform 0.15s !important;
+}
+.nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+@media (max-width: 640px) {
+  .nav-links { gap: 16px; }
+  .nav-links li:not(:last-child) { display: none; }
+}
+
+/* ── HERO ──────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px var(--gutter) 80px;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.1s forwards;
+}
+.hero-headline {
+  font-size: clamp(42px, 7vw, 88px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--white);
+  max-width: 820px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 0.2s forwards;
+}
+.hero-headline strong {
+  font-weight: 700;
+}
+.hero-headline .period { color: var(--orange); }
+
+.hero-sub {
+  margin-top: 28px;
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 540px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 0.35s forwards;
+}
+
+.hero-actions {
+  margin-top: 44px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 0.5s forwards;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--orange);
+  color: var(--black);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+.btn-ghost {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--dim);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-ghost:hover { color: var(--white); border-color: var(--white); }
+
+.hero-stack {
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 0.65s forwards;
+}
+.stack-label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-right: 4px;
+}
+.stack-pill {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.01em;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTIONS ──────────────────────────────────── */
+section {
+  padding: clamp(64px, 10vw, 120px) var(--gutter);
+}
+section .wrap { max-width: var(--max); }
+
+.section-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 20px;
+}
+.section-title {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--white);
+  max-width: 640px;
+  margin-bottom: 24px;
+}
+.section-title strong { font-weight: 700; }
+.section-body {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 600px;
+}
+.section-divider {
+  height: 1px;
+  background: var(--border);
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+/* ── PROBLEM SECTION ───────────────────────────── */
+.problem {
+  background: var(--panel);
+}
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  margin-top: 0;
+}
+.problem-stat {
+  padding: 40px;
+  background: var(--black);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.problem-stat::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--orange);
+}
+.stat-number {
+  font-size: clamp(52px, 8vw, 80px);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: -0.04em;
+}
+.stat-number .stat-pct { color: var(--orange); }
+.stat-label {
+  font-size: 15px;
+  color: var(--muted);
+  margin-top: 12px;
+  line-height: 1.5;
+}
+@media (max-width: 700px) {
+  .problem-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ── WHAT I DO ─────────────────────────────────── */
+.whatido-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 56px;
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.whatido-card {
+  background: var(--panel);
+  padding: 36px;
+}
+.whatido-card:nth-child(odd) { background: var(--panel2); }
+.card-icon {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 20px;
+  color: var(--orange);
+}
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.card-body {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+@media (max-width: 640px) {
+  .whatido-grid { grid-template-columns: 1fr; }
+}
+
+/* ── WHY THIS WORKS ────────────────────────────── */
+.why {
+  background: var(--panel);
+}
+.why-list {
+  margin-top: 52px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 64px;
+}
+.why-item {}
+.why-num {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--orange);
+  font-family: 'IBM Plex Mono', monospace;
+  margin-bottom: 12px;
+}
+.why-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.why-body {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+@media (max-width: 640px) {
+  .why-list { grid-template-columns: 1fr; gap: 32px; }
+}
+
+/* ── TIERS ─────────────────────────────────────── */
+.tiers-intro {
+  max-width: 600px;
+  margin-bottom: 52px;
+}
+.tiers-grid {
+  display: flex;
+  gap: 0;
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.tier {
+  flex: 1;
+  background: var(--panel);
+  padding: 36px 32px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.tier + .tier {
+  border-left: 1px solid var(--border);
+}
+.tier.featured {
+  background: var(--orange);
+  color: var(--black);
+}
+.tier-badge {
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--black);
+  color: var(--orange);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 0 0 8px 8px;
+}
+.tier-name {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.tier:not(.featured) .tier-name { color: var(--dim); }
+.tier.featured .tier-name { color: rgba(28,24,21,0.6); }
+.tier-price {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: -0.03em;
+}
+.tier:not(.featured) .tier-price { color: var(--white); }
+.tier-per {
+  font-size: 13px;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+.tier:not(.featured) .tier-per { color: var(--dim); }
+.tier.featured .tier-per { color: rgba(28,24,21,0.55); }
+.tier-tagline {
+  font-size: 13px;
+  font-style: italic;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid;
+  line-height: 1.4;
+}
+.tier:not(.featured) .tier-tagline {
+  color: var(--muted);
+  border-color: var(--border);
+}
+.tier.featured .tier-tagline {
+  color: rgba(28,24,21,0.65);
+  border-color: rgba(28,24,21,0.15);
+}
+.tier-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.tier-features li {
+  font-size: 13px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.4;
+}
+.tier:not(.featured) .tier-features li { color: var(--muted); }
+.tier.featured .tier-features li { color: rgba(28,24,21,0.8); }
+.tier-features li::before {
+  content: '+';
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0px;
+  line-height: 1.4;
+}
+.tier:not(.featured) .tier-features li::before { color: var(--orange); }
+.tier.featured .tier-features li::before { color: var(--black); }
+
+.tiers-note {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--dim);
+  text-align: center;
+}
+.tiers-note strong { color: var(--muted); font-weight: 500; }
+
+@media (max-width: 700px) {
+  .tiers-grid { flex-direction: column; }
+  .tier + .tier { border-left: none; border-top: 1px solid var(--border); }
+}
+
+/* ── ABOUT ─────────────────────────────────────── */
+.about {
+  background: var(--panel);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 80px;
+  align-items: start;
+}
+.about-body p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+.about-body p:last-child { margin-bottom: 0; }
+.about-body p strong {
+  color: var(--white);
+  font-weight: 500;
+}
+.about-credentials {
+  background: var(--black);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.cred-item {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cred-item:last-child { border-bottom: none; padding-bottom: 0; }
+.cred-item:first-child { padding-top: 0; }
+.cred-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.cred-value {
+  font-size: 14px;
+  color: var(--white);
+  font-weight: 500;
+}
+.cred-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+@media (max-width: 800px) {
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ── CONTACT ───────────────────────────────────── */
+.contact-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+.contact-inner .section-title {
+  max-width: 100%;
+  margin: 0 auto 16px;
+}
+.contact-inner .section-body {
+  max-width: 100%;
+  margin: 0 auto 44px;
+}
+.contact-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.contact-detail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 36px;
+}
+.contact-item {
+  font-size: 13px;
+  color: var(--dim);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.contact-item a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.contact-item a:hover { color: var(--white); }
+
+/* ── FOOTER ────────────────────────────────────── */
+footer {
+  padding: 32px var(--gutter);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+.footer-copy {
+  font-size: 12px;
+  color: var(--dim);
+}
+.footer-stack {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.footer-stack span {
+  font-size: 11px;
+  color: var(--dim);
+}
+.footer-stack .stack-pill {
+  font-size: 10px;
+  padding: 2px 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <svg class="nav-logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="16" fill="#2A241F"/>
+        <line x1="16" y1="6" x2="25" y2="21" stroke="#FF6B35" stroke-width="1.2" stroke-opacity="0.4"/>
+        <line x1="16" y1="6" x2="7" y2="21" stroke="#FF6B35" stroke-width="1.2" stroke-opacity="0.4"/>
+        <line x1="7" y1="21" x2="25" y2="21" stroke="#FF6B35" stroke-width="1.2" stroke-opacity="0.4"/>
+        <circle cx="16" cy="6" r="2.2" fill="#FF6B35"/>
+        <circle cx="7" cy="21" r="2.2" fill="#FF6B35" fill-opacity="0.45"/>
+        <circle cx="25" cy="21" r="2.2" fill="#FF6B35" fill-opacity="0.45"/>
+        <text x="16" y="17" text-anchor="middle" font-family="IBM Plex Sans,sans-serif" font-size="6.5" font-weight="700" fill="#FDF8F3" letter-spacing="0.3">LV</text>
+      </svg>
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">LV Analytics</span>
+        <span class="nav-logo-sub">Luke VanLaar</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#what-i-do">What I do</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact" class="nav-cta">Get in touch</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="wrap">
+  <div class="hero">
+    <p class="hero-eyebrow">Analytics Engineering · West Michigan</p>
+    <h1 class="hero-headline">
+      Your data<span class="period">.</span><br>
+      <strong>Actually working</strong><span class="period">.</span>
+    </h1>
+    <p class="hero-sub">Senior analytics engineering expertise — without the full-time hire. I embed in your Microsoft data environment on retainer, fix what's broken, and keep things running.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Let's talk →</a>
+      <a href="#pricing" class="btn-ghost">See how it works</a>
+    </div>
+    <div class="hero-stack">
+      <span class="stack-label">Built on</span>
+      <span class="stack-pill">Microsoft Fabric</span>
+      <span class="stack-pill">Power BI</span>
+      <span class="stack-pill">Azure</span>
+      <span class="stack-pill">AI</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="wrap">
+    <div class="problem-grid">
+      <div>
+        <p class="section-eyebrow">The situation</p>
+        <h2 class="section-title">Someone's wearing the <strong>"data hat"</strong> as a side job.</h2>
+        <p class="section-body">Most growing businesses have someone — maybe you — spending a meaningful chunk of their time on reporting and data work they were never hired to do. They're capable. But they're not specialized. And today, the gap between a generalist and someone who does this full-time has never been wider.</p>
+        <p class="section-body" style="margin-top:16px;">AI has widened that gap further. The right expertise paired with AI tooling does the work that used to take a small team. You're not paying for hours. You're paying for leverage.</p>
+      </div>
+      <div class="problem-stat">
+        <div class="stat-number"><span class="stat-pct">20</span>%</div>
+        <p class="stat-label">of a generalist's time spent on data work costs more than it should — and delivers less than it could.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT I DO -->
+<section id="what-i-do">
+  <div class="wrap">
+    <p class="section-eyebrow">What I do</p>
+    <h2 class="section-title">One person. <strong>Full-stack data capability.</strong></h2>
+    <p class="section-body">I work embedded in your Microsoft environment on an ongoing basis — not parachuting in for a project and disappearing.</p>
+    <div class="whatido-grid">
+      <div class="whatido-card">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <h3 class="card-title">Platform management</h3>
+        <p class="card-body">Ongoing stewardship of your Microsoft Fabric, Power BI, and Azure environment — monitoring, governance, capacity optimization, and cost management.</p>
+      </div>
+      <div class="whatido-card">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        <h3 class="card-title">Reporting & dashboards</h3>
+        <p class="card-body">Power BI reports and dashboards that are accurate, fast, and actually used. Built with proper data models and semantic layers — not just pretty charts on bad data.</p>
+      </div>
+      <div class="whatido-card">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+        <h3 class="card-title">Data engineering</h3>
+        <p class="card-body">Pipelines, lakehouses, and data integrations across your systems — designed to be reliable, maintainable, and understandable, not just technically impressive.</p>
+      </div>
+      <div class="whatido-card">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        <h3 class="card-title">AI & automation</h3>
+        <p class="card-body">Practical AI features — Copilot integration, intelligent automation, natural-language reporting — applied where they genuinely help, not as a buzzword.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- WHY THIS WORKS -->
+<section class="why" id="why">
+  <div class="wrap">
+    <p class="section-eyebrow">Why this works</p>
+    <h2 class="section-title">No scoping. No setup fees. <strong>Just get to work.</strong></h2>
+    <div class="why-list">
+      <div class="why-item">
+        <p class="why-num">01</p>
+        <h3 class="why-title">Your hours go further than they look</h3>
+        <p class="why-body">I build reusable templates and patterns across every client I work with. A 6-hour-a-month plan often delivers work that took far longer to build — because I've likely solved a similar problem before.</p>
+      </div>
+      <div class="why-item">
+        <p class="why-num">02</p>
+        <h3 class="why-title">I know what's worth building</h3>
+        <p class="why-body">Years of pattern-matching across real implementations means I know which features have genuine ROI and which ones are just noise. You don't pay me to learn on your environment.</p>
+      </div>
+      <div class="why-item">
+        <p class="why-num">03</p>
+        <h3 class="why-title">I save you money on the platform itself</h3>
+        <p class="why-body">Scheduling Fabric and Azure capacity to scale down when nobody's using it. Right-sizing your licensing. Catching runaway pipelines before they run up a bill. The savings often offset the retainer.</p>
+      </div>
+      <div class="why-item">
+        <p class="why-num">04</p>
+        <h3 class="why-title">The longer we work together, the better it gets</h3>
+        <p class="why-body">I learn your business fast — that's always been my edge. A long-term relationship compounds. I'm not just maintaining what exists, I'm understanding where you're going and building toward it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="tiers-intro">
+      <p class="section-eyebrow">Work with me</p>
+      <h2 class="section-title">Simple, <strong>predictable pricing.</strong></h2>
+      <p class="section-body">Every engagement is a flat monthly retainer. The tier reflects how much active work you need — and can step up or down as your situation changes.</p>
+    </div>
+    <div class="tiers-grid">
+      <div class="tier">
+        <p class="tier-name">Foundation</p>
+        <p class="tier-price">$1,200</p>
+        <p class="tier-per">/ month</p>
+        <p class="tier-tagline">Getting your environment stable and understood.</p>
+        <ul class="tier-features">
+          <li>6 hrs/mo included</li>
+          <li>Platform monitoring & health checks</li>
+          <li>Direct access — no ticket queues</li>
+          <li>1 business day response</li>
+          <li>$250/hr overage</li>
+        </ul>
+      </div>
+      <div class="tier featured">
+        <div class="tier-badge">Most popular</div>
+        <p class="tier-name">Growth</p>
+        <p class="tier-price">$8,000</p>
+        <p class="tier-per">/ month</p>
+        <p class="tier-tagline">Active builds, ongoing management, real momentum.</p>
+        <ul class="tier-features">
+          <li>40 hrs/mo included</li>
+          <li>Everything in Foundation</li>
+          <li>New report & dashboard builds</li>
+          <li>Pipeline work & data engineering</li>
+          <li>Same-day response</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <p class="tier-name">Embedded</p>
+        <p class="tier-price">$14,000</p>
+        <p class="tier-per">/ month</p>
+        <p class="tier-tagline">Near-dedicated involvement for a serious deployment.</p>
+        <ul class="tier-features">
+          <li>70 hrs/mo included</li>
+          <li>Everything in Growth</li>
+          <li>Strategy & roadmap input</li>
+          <li>Platform ownership</li>
+          <li>Same-day response</li>
+        </ul>
+      </div>
+    </div>
+    <p class="tiers-note">All tiers billed monthly, no minimum commitment. Overage at <strong>$250/hr</strong>. Tiers adjust with 30 days notice.</p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <p class="section-eyebrow">About</p>
+        <h2 class="section-title" style="max-width:100%;">Started in a lab.<br><strong>Ended up in the data.</strong></h2>
+        <div class="about-body">
+          <p>I have a biochemistry degree and started my career at a lab bench. I found my knack for data almost by accident — in Excel, solving the problem in front of me. That led to a Continuous Improvement Specialist role, where I paired data with <strong>Lean Six Sigma</strong> to find waste and fix real processes.</p>
+          <p>Five years ago I moved into analytics engineering full-time. I started as a scrappy problem-solver and became a true analytics engineering professional — but never lost the instinct to ask what a number is actually for.</p>
+          <p>I'm based in <strong>West Michigan</strong> and work primarily with businesses in the Microsoft data ecosystem. I lean on AI heavily in my own work — which is exactly how one person covers what used to take a team.</p>
+        </div>
+      </div>
+      <div>
+        <div class="about-credentials">
+          <div class="cred-item">
+            <span class="cred-label">Experience</span>
+            <span class="cred-value">5+ years analytics engineering</span>
+            <span class="cred-sub">Full-time, Microsoft stack</span>
+          </div>
+          <div class="cred-item">
+            <span class="cred-label">Background</span>
+            <span class="cred-value">Lean Six Sigma</span>
+            <span class="cred-sub">Continuous improvement & process optimization</span>
+          </div>
+          <div class="cred-item">
+            <span class="cred-label">Fluent in</span>
+            <span class="cred-value">DAX · M · SQL · PySpark</span>
+            <span class="cred-sub">Plus Fabric, Power BI, Azure, AI tooling</span>
+          </div>
+          <div class="cred-item">
+            <span class="cred-label">Based in</span>
+            <span class="cred-value">Grand Rapids, MI</span>
+            <span class="cred-sub">Working with clients across West Michigan</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-inner">
+      <p class="section-eyebrow">Get in touch</p>
+      <h2 class="section-title">Free 20-minute consult.</h2>
+      <p class="section-body">I'll tell you straight whether this makes sense for your business — and if it doesn't, I'll tell you that too.</p>
+      <div class="contact-actions">
+        <a href="mailto:[your@email.com]" class="btn-primary">Send me an email →</a>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 6.18 2 2 0 015 4h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L9.09 11a16 16 0 006.91 6.91l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 18.92z"/></svg>
+          <a href="tel:[your-phone]">[Your Phone]</a>
+        </span>
+        <span class="contact-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:[your@email.com]">[Your Email]</a>
+        </span>
+        <span class="contact-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          Grand Rapids, MI
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="wrap">
+  <span class="footer-copy">© 2026 LV Analytics · Luke VanLaar</span>
+  <div class="footer-stack">
+    <span>Fabric</span>
+    <span>·</span>
+    <span>Power BI</span>
+    <span>·</span>
+    <span>Azure</span>
+    <span>·</span>
+    <span>AI</span>
+  </div>
+</footer>
+
+<script>
+  // Subtle nav shrink on scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.padding = window.scrollY > 60 ? '12px 0' : '20px 0';
+  }, { passive: true });
+
+  // Intersection observer for scroll-triggered reveals
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.why-item, .whatido-card, .tier, .cred-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
