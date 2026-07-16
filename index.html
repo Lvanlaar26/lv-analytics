@@ -508,6 +508,252 @@ section .wrap { max-width: var(--max); }
   .tier + .tier { border-left: none; border-top: 1px solid var(--border); }
 }
 
+/* ── ENGAGEMENT MODEL SLIDER ───────────────────── */
+.slider-section { margin-bottom: 40px; }
+
+.tier-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.tier-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+  transition: color 0.2s;
+  cursor: pointer;
+  user-select: none;
+}
+.tier-label.active { color: var(--orange); }
+
+.slider-wrap { position: relative; padding: 4px 0; }
+
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: var(--panel2);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 4px var(--orange-d), 0 2px 8px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.15s;
+}
+input[type=range]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 8px var(--orange-d), 0 2px 8px rgba(0,0,0,0.4);
+  transform: scale(1.1);
+}
+input[type=range]::-moz-range-thumb {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--orange);
+  border: none;
+  cursor: pointer;
+}
+.slider-track-fill {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 2px;
+  background: var(--orange);
+  transform: translateY(-50%);
+  pointer-events: none;
+  border-radius: 2px;
+  transition: width 0.25s ease;
+  z-index: 0;
+}
+
+.tier-card-wrap {
+  position: relative;
+  min-height: 380px;
+  margin-top: 36px;
+}
+.tier-card {
+  position: absolute;
+  inset: 0;
+  background: var(--panel);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+.tier-card.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+.card-tier-name {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+.card-price {
+  font-size: 44px;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  color: var(--white);
+  line-height: 1;
+}
+.card-price span {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0;
+}
+.card-tagline {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 6px;
+  font-style: italic;
+}
+
+.capacity-wrap { text-align: right; }
+.capacity-label {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 8px;
+}
+.capacity-bar-bg {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  margin-left: auto;
+}
+.capacity-svg { width: 80px; height: 80px; transform: rotate(-90deg); }
+.capacity-track { fill: none; stroke: var(--panel2); stroke-width: 5; }
+.capacity-fill {
+  fill: none;
+  stroke: var(--orange);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  transition: stroke-dashoffset 0.6s cubic-bezier(.4,0,.2,1);
+}
+.capacity-pct {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.card-divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 24px;
+}
+
+.card-rows { display: flex; flex-direction: column; gap: 0; }
+.card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.card-row:last-child { border-bottom: none; }
+.row-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+.row-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  font-family: 'IBM Plex Mono', monospace;
+  text-align: right;
+}
+.row-value.orange { color: var(--orange); }
+
+.card-note {
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--dim);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.always-section {
+  margin-top: 48px;
+  padding: 28px 32px;
+  background: var(--orange-d);
+  border: 1px solid var(--orange-m);
+  border-radius: var(--r);
+}
+.always-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 18px;
+}
+.always-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 24px;
+}
+.always-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.always-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--orange);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+@media (max-width: 560px) {
+  .always-grid { grid-template-columns: 1fr; }
+  .card-top { flex-direction: column; gap: 20px; }
+  .capacity-wrap { text-align: left; }
+  .capacity-bar-bg { margin-left: 0; }
+}
+
 /* ── ABOUT ─────────────────────────────────────── */
 .about {
   background: var(--panel);
@@ -680,7 +926,7 @@ footer {
       Your data<span class="period">.</span><br>
       <strong>Actually working</strong><span class="period">.</span>
     </h1>
-    <p class="hero-sub">Senior analytics engineering expertise — without the full-time hire. I embed in your Microsoft data environment on retainer, fix what's broken, and keep things running.</p>
+    <p class="hero-sub">Senior analytics engineering expertise — without the full-time hire. I embed in your Microsoft data environment on retainer, fix what's broken, build what's missing, and keep things running.</p>
     <div class="hero-actions">
       <a href="#contact" class="btn-primary">Let's talk →</a>
       <a href="#pricing" class="btn-ghost">See how it works</a>
@@ -776,57 +1022,208 @@ footer {
   </div>
 </section>
 
-<!-- PRICING -->
+<!-- ENGAGEMENT MODEL -->
 <section id="pricing">
   <div class="wrap">
     <div class="tiers-intro">
       <p class="section-eyebrow">Work with me</p>
-      <h2 class="section-title">Simple, <strong>predictable pricing.</strong></h2>
-      <p class="section-body">Every engagement is a flat monthly retainer. The tier reflects how much active work you need — and can step up or down as your situation changes.</p>
+      <h2 class="section-title">A retainer built to <strong>grow with you</strong></h2>
+      <p class="section-body">Every engagement starts with the same foundation: platform monitoring, availability, and a direct line to someone who knows your environment. From there, the tier reflects how much active work you need each month.</p>
     </div>
-    <div class="tiers-grid">
-      <div class="tier">
-        <p class="tier-name">Foundation</p>
-        <p class="tier-price">$1,200</p>
-        <p class="tier-per">/ month</p>
-        <p class="tier-tagline">Getting your environment stable and understood.</p>
-        <ul class="tier-features">
-          <li>6 hrs/mo included</li>
-          <li>Platform monitoring & health checks</li>
-          <li>Direct access — no ticket queues</li>
-          <li>1 business day response</li>
-          <li>$250/hr overage</li>
-        </ul>
+
+    <div class="slider-section">
+      <div class="tier-labels">
+        <span class="tier-label active" data-tier="0">Stewardship</span>
+        <span class="tier-label" data-tier="1">Starter</span>
+        <span class="tier-label" data-tier="2">Growth</span>
+        <span class="tier-label" data-tier="3">Embedded</span>
       </div>
-      <div class="tier featured">
-        <div class="tier-badge">Most popular</div>
-        <p class="tier-name">Growth</p>
-        <p class="tier-price">$8,000</p>
-        <p class="tier-per">/ month</p>
-        <p class="tier-tagline">Active builds, ongoing management, real momentum.</p>
-        <ul class="tier-features">
-          <li>40 hrs/mo included</li>
-          <li>Everything in Foundation</li>
-          <li>New report & dashboard builds</li>
-          <li>Pipeline work & data engineering</li>
-          <li>Same-day response</li>
-        </ul>
-      </div>
-      <div class="tier">
-        <p class="tier-name">Embedded</p>
-        <p class="tier-price">$14,000</p>
-        <p class="tier-per">/ month</p>
-        <p class="tier-tagline">Near-dedicated involvement for a serious deployment.</p>
-        <ul class="tier-features">
-          <li>70 hrs/mo included</li>
-          <li>Everything in Growth</li>
-          <li>Strategy & roadmap input</li>
-          <li>Platform ownership</li>
-          <li>Same-day response</li>
-        </ul>
+      <div class="slider-wrap">
+        <div class="slider-track-fill" id="trackFill"></div>
+        <input type="range" min="0" max="3" step="1" value="0" id="tierSlider">
       </div>
     </div>
-    <p class="tiers-note">All tiers billed monthly, no minimum commitment. Overage at <strong>$250/hr</strong>. Tiers adjust with 30 days notice.</p>
+
+    <div class="tier-card-wrap" id="cardWrap">
+      <!-- STEWARDSHIP -->
+      <div class="tier-card active" data-tier="0">
+        <div class="card-top">
+          <div>
+            <div class="card-tier-name">Stewardship</div>
+            <div class="card-price">$1,200<span>/mo</span></div>
+            <div class="card-tagline">The natural end-state for a stable, mature environment.</div>
+          </div>
+          <div class="capacity-wrap">
+            <div class="capacity-label">My time</div>
+            <div class="capacity-bar-bg">
+              <svg class="capacity-svg" viewBox="0 0 80 80">
+                <circle class="capacity-track" cx="40" cy="40" r="35"/>
+                <circle class="capacity-fill" cx="40" cy="40" r="35" style="stroke-dashoffset: 209;"/>
+              </svg>
+              <div class="capacity-pct">5%</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-rows">
+          <div class="card-row">
+            <span class="row-label">Included hours</span>
+            <span class="row-value">6 hrs</span>
+          </div>
+          <div class="card-row">
+            <span class="row-label">Active involvement</span>
+            <span class="row-value">~5% of my time</span>
+          </div>
+          <div class="card-row">
+            <span class="row-label">Response SLA</span>
+            <span class="row-value">2 business days</span>
+          </div>
+          <div class="card-row">
+            <span class="row-label">Overage rate</span>
+            <span class="row-value">$250 / hr</span>
+          </div>
+        </div>
+        <p class="card-note">Best for: environments that are stable and just need someone watching. No active builds — just stewardship and availability.</p>
+      </div>
+
+      <!-- STARTER -->
+      <div class="tier-card" data-tier="1">
+        <div class="card-top">
+          <div>
+            <div class="card-tier-name">Starter</div>
+            <div class="card-price">$8,000<span>/mo</span></div>
+            <div class="card-tagline">Active involvement at a steady, manageable pace.</div>
+          </div>
+          <div class="capacity-wrap">
+            <div class="capacity-label">My time</div>
+            <div class="capacity-bar-bg">
+              <svg class="capacity-svg" viewBox="0 0 80 80">
+                <circle class="capacity-track" cx="40" cy="40" r="35"/>
+                <circle class="capacity-fill" cx="40" cy="40" r="35" style="stroke-dashoffset: 165;"/>
+              </svg>
+              <div class="capacity-pct">25%</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-rows">
+          <div class="card-row">
+            <span class="row-label">Included hours</span>
+            <span class="row-value">40 hrs</span>
+          </div>
+          <div class="card-row">
+            <span class="row-label">Active involvement</span>
+            <span class="row-value">~25% of my time</span>
+          </div>
+          <div class="card-row">
+            <span class="row-label">Response SLA</span>
+            <span class="row-value">1 business day</span>
+          </div>
+          <div class="card-row">
+            <span class="row-label">Overage rate</span>
+            <span class="row-value">$250 / hr</span>
+          </div>
+        </div>
+        <p class="card-note">Best for: post-deployment stabilization or steady reporting needs with consistent improvement over time.</p>
+      </div>
+
+      <!-- GROWTH -->
+      <div class="tier-card" data-tier="2">
+        <div class="card-top">
+          <div>
+            <div class="card-tier-name">Growth</div>
+            <div class="card-price">$14,000<span>/mo</span></div>
+            <div class="card-tagline">The right pace to move fast without burning out the engagement.</div>
+          </div>
+          <div class="capacity-wrap">
+            <div class="capacity-label">My time</div>
+            <div class="capacity-bar-bg">
+              <svg class="capacity-svg" viewBox="0 0 80 80">
+                <circle class="capacity-track" cx="40" cy="40" r="35"/>
+                <circle class="capacity-fill" cx="40" cy="40" r="35" style="stroke-dashoffset: 110;"/>
+              </svg>
+              <div class="capacity-pct">50%</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-rows">
+          <div class="card-row">
+            <span class="row-label">Included hours</span>
+            <span class="row-value">70 hrs</span>
+          </div>
+          <div class="card-row">
+            <span class="row-label">Active involvement</span>
+            <span class="row-value">~50% of my time</span>
+          </div>
+          <div class="card-row">
+            <span class="row-label">Response SLA</span>
+            <span class="row-value">Same day</span>
+          </div>
+          <div class="card-row">
+            <span class="row-label">Overage rate</span>
+            <span class="row-value">$250 / hr</span>
+          </div>
+        </div>
+        <p class="card-note">Best for: active deployments, migrations, or building out data capability. Enough hours to make real progress every month.</p>
+      </div>
+
+      <!-- EMBEDDED -->
+      <div class="tier-card" data-tier="3">
+        <div class="card-top">
+          <div>
+            <div class="card-tier-name">Embedded</div>
+            <div class="card-price">$19,500<span>/mo</span></div>
+            <div class="card-tagline">Near-dedicated involvement for a focused crunch phase.</div>
+          </div>
+          <div class="capacity-wrap">
+            <div class="capacity-label">My time</div>
+            <div class="capacity-bar-bg">
+              <svg class="capacity-svg" viewBox="0 0 80 80">
+                <circle class="capacity-track" cx="40" cy="40" r="35"/>
+                <circle class="capacity-fill" cx="40" cy="40" r="35" style="stroke-dashoffset: 55;"/>
+              </svg>
+              <div class="capacity-pct">75%</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-rows">
+          <div class="card-row">
+            <span class="row-label">Included hours</span>
+            <span class="row-value">100 hrs</span>
+          </div>
+          <div class="card-row">
+            <span class="row-label">Active involvement</span>
+            <span class="row-value">~75% of my time</span>
+          </div>
+          <div class="card-row">
+            <span class="row-label">Response SLA</span>
+            <span class="row-value">Same day</span>
+          </div>
+          <div class="card-row">
+            <span class="row-label">Overage rate</span>
+            <span class="row-value">$250 / hr</span>
+          </div>
+        </div>
+        <p class="card-note">Best for: time-sensitive deployments that need to get done right, quickly. Typically temporary before stepping down to Growth or Starter.</p>
+      </div>
+    </div>
+
+    <!-- ALWAYS INCLUDED -->
+    <div class="always-section">
+      <div class="always-title">Always included — every tier</div>
+      <div class="always-grid">
+        <div class="always-item"><div class="always-dot"></div><span>Platform monitoring and health checks</span></div>
+        <div class="always-item"><div class="always-dot"></div><span>Priority availability and direct access</span></div>
+        <div class="always-item"><div class="always-dot"></div><span>Proactive issue identification</span></div>
+        <div class="always-item"><div class="always-dot"></div><span>Institutional knowledge of your environment</span></div>
+        <div class="always-item"><div class="always-dot"></div><span>Microsoft Fabric, Power BI, and Azure expertise</span></div>
+        <div class="always-item"><div class="always-dot"></div><span>AI-assisted workflows and automation</span></div>
+      </div>
+    </div>
+
+    <p class="tiers-note">Tiers step up or down with <strong>30 days notice</strong>. Hours beyond the included cap are billed at <strong>$250/hr</strong>. Unused hours do not roll over.</p>
   </div>
 </section>
 
@@ -881,16 +1278,16 @@ footer {
       <h2 class="section-title">Free 20-minute consult.</h2>
       <p class="section-body">I'll tell you straight whether this makes sense for your business — and if it doesn't, I'll tell you that too.</p>
       <div class="contact-actions">
-        <a href="mailto:[your@email.com]" class="btn-primary">Send me an email →</a>
+        <a href="mailto:luke@lv-analytics.com" class="btn-primary">Send me an email →</a>
       </div>
       <div class="contact-detail">
         <span class="contact-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 6.18 2 2 0 015 4h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L9.09 11a16 16 0 006.91 6.91l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 18.92z"/></svg>
-          <a href="tel:[your-phone]">[Your Phone]</a>
+          <a href="tel:+16168486362">(616) 848-6362</a>
         </span>
         <span class="contact-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          <a href="mailto:[your@email.com]">[Your Email]</a>
+          <a href="mailto:luke@lv-analytics.com">luke@lv-analytics.com</a>
         </span>
         <span class="contact-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -932,12 +1329,50 @@ footer {
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.why-item, .whatido-card, .tier, .cred-item').forEach(el => {
+  document.querySelectorAll('.why-item, .whatido-card, .cred-item').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     observer.observe(el);
   });
+
+  // Engagement model slider functionality
+  const slider = document.getElementById('tierSlider');
+  const trackFill = document.getElementById('trackFill');
+  const cards = document.querySelectorAll('.tier-card');
+  const labels = document.querySelectorAll('.tier-label');
+
+  const capacityOffsets = [209, 165, 110, 55];
+  const capacityPcts = ['5%', '25%', '50%', '75%'];
+
+  function setTier(val) {
+    const pct = (val / 3) * 100;
+    trackFill.style.width = pct + '%';
+
+    cards.forEach((c, i) => {
+      c.classList.toggle('active', i === val);
+      const fill = c.querySelector('.capacity-fill');
+      const pctEl = c.querySelector('.capacity-pct');
+      if (fill) fill.style.strokeDashoffset = capacityOffsets[i];
+      if (pctEl) pctEl.textContent = capacityPcts[i];
+    });
+
+    labels.forEach((l, i) => {
+      l.classList.toggle('active', i === val);
+    });
+  }
+
+  slider.addEventListener('input', () => setTier(+slider.value));
+
+  labels.forEach(l => {
+    l.addEventListener('click', () => {
+      const t = +l.dataset.tier;
+      slider.value = t;
+      setTier(t);
+    });
+  });
+
+  setTier(0);
 </script>
 </body>
 </html>
