@@ -749,9 +749,16 @@ input[type=range]::-moz-range-thumb {
 
 @media (max-width: 560px) {
   .always-grid { grid-template-columns: 1fr; }
+  .tier-card-wrap { min-height: auto; }
+  .tier-card { position: static; opacity: 1 !important; transform: none !important; margin-bottom: 24px; }
+  .tier-card:not(.active) { display: none; }
   .card-top { flex-direction: column; gap: 20px; }
+  .card-price { font-size: 36px; }
   .capacity-wrap { text-align: left; }
-  .capacity-bar-bg { margin-left: 0; }
+  .capacity-bar-bg { margin-left: 0; width: 60px; height: 60px; }
+  .capacity-svg { width: 60px; height: 60px; }
+  .capacity-label { font-size: 9px; }
+  .capacity-pct { font-size: 12px; }
 }
 
 /* ── ABOUT ─────────────────────────────────────── */
