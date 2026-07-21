@@ -820,6 +820,59 @@ input[type=range]::-moz-range-thumb {
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
 }
 
+/* ── FAQ ───────────────────────────────────────── */
+.faq .section-title { max-width: 760px; }
+.faq-list {
+  max-width: 820px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.faq-item {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 24px;
+}
+.faq-item[open] { border-color: var(--orange-m); }
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 19px;
+  line-height: 1.4;
+  color: var(--white);
+  font-weight: 500;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  color: var(--orange);
+  font-size: 22px;
+  line-height: 1;
+  margin-top: -1px;
+}
+.faq-item[open] summary::after { content: '−'; }
+.faq-answer {
+  margin-top: 14px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--muted);
+  max-width: 760px;
+}
+.faq-answer ul {
+  list-style: disc;
+  padding-left: 22px;
+  margin: 0;
+}
+.faq-answer li {
+  margin-bottom: 10px;
+}
+.faq-answer li:last-child { margin-bottom: 0; }
+
 /* ── CONTACT ───────────────────────────────────── */
 .contact-inner {
   max-width: 640px;
@@ -919,6 +972,7 @@ footer {
     <ul class="nav-links">
       <li><a href="#what-i-do">What I do</a></li>
       <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact" class="nav-cta">Get in touch</a></li>
     </ul>
@@ -933,7 +987,7 @@ footer {
       Your data<span class="period">.</span><br>
       <strong>Actually working</strong><span class="period">.</span>
     </h1>
-    <p class="hero-sub">Senior analytics engineering expertise — without the full-time hire. I embed in your Microsoft data environment on retainer, fix what's broken, build what's missing, and keep things running.</p>
+    <p class="hero-sub">Senior analytics engineering expertise — without the full-time hire. I embed in your Microsoft data environment, fix what's broken, build what's missing, and keep things running.</p>
     <div class="hero-actions">
       <a href="#contact" class="btn-primary">Let's talk →</a>
       <a href="#pricing" class="btn-ghost">See how it works</a>
@@ -956,7 +1010,7 @@ footer {
         <p class="section-eyebrow">The situation</p>
         <h2 class="section-title">Someone's wearing the <strong>"data hat"</strong> as a side job.</h2>
         <p class="section-body">Most growing businesses have someone — maybe you — spending a meaningful chunk of their time on reporting and data work they were never hired to do. They're capable. But they're not specialized. And today, the gap between a generalist and someone who does this full-time has never been wider.</p>
-        <p class="section-body" style="margin-top:16px;">AI has widened that gap further. The right expertise paired with AI tooling does the work that used to take a small team. You're not buying task-hours — you're reserving expert capacity and leverage.</p>
+        <p class="section-body" style="margin-top:16px;">The right expertise paired with AI tooling does the work that used to take a small team. You're not buying hours — you're reserving expert capacity and leverage.</p>
       </div>
       <div class="problem-stat">
         <div class="stat-number"><span class="stat-pct">20</span>%</div>
@@ -1041,10 +1095,10 @@ footer {
 
     <div class="slider-section">
       <div class="tier-labels">
-        <span class="tier-label active" data-tier="0">Stewardship</span>
-        <span class="tier-label" data-tier="1">Starter</span>
-        <span class="tier-label" data-tier="2">Growth</span>
-        <span class="tier-label" data-tier="3">Embedded</span>
+        <span class="tier-label active" data-tier="0">Foundation</span>
+        <span class="tier-label" data-tier="1">Traction</span>
+        <span class="tier-label" data-tier="2">Momentum</span>
+        <span class="tier-label" data-tier="3">Growth</span>
       </div>
       <div class="slider-wrap">
         <div class="slider-track-fill" id="trackFill"></div>
@@ -1053,13 +1107,13 @@ footer {
     </div>
 
     <div class="tier-card-wrap" id="cardWrap">
-      <!-- STEWARDSHIP -->
+      <!-- FOUNDATION -->
       <div class="tier-card active" data-tier="0">
         <div class="card-top">
           <div>
-            <div class="card-tier-name">Stewardship</div>
+            <div class="card-tier-name">Foundation</div>
             <div class="card-price">$1,200<span>/mo</span></div>
-            <div class="card-tagline">The natural end-state for a stable, mature environment.</div>
+            <div class="card-tagline">Where it starts — and where it can settle once things are steady.</div>
           </div>
           <div class="capacity-wrap">
             <div class="capacity-label">My time</div>
@@ -1091,14 +1145,55 @@ footer {
             <span class="row-value">$250 / hr</span>
           </div>
         </div>
-        <p class="card-note">Best for: environments that are stable and just need someone watching. No active builds — just stewardship and availability.</p>
+        <p class="card-note">Best for: getting started at low risk, or settling into a stable, mature environment that just needs someone watching. Limited active builds, primarily monitoring and availability.</p>
       </div>
 
-      <!-- STARTER -->
+      <!-- TRACTION -->
       <div class="tier-card" data-tier="1">
         <div class="card-top">
           <div>
-            <div class="card-tier-name">Starter</div>
+            <div class="card-tier-name">Traction</div>
+            <div class="card-price">$4,000<span>/mo</span></div>
+            <div class="card-tagline">Real progress on a modest, consistent cadence.</div>
+          </div>
+          <div class="capacity-wrap">
+            <div class="capacity-label">My time</div>
+            <div class="capacity-bar-bg">
+              <svg class="capacity-svg" viewBox="0 0 80 80">
+                <circle class="capacity-track" cx="40" cy="40" r="35"/>
+                <circle class="capacity-fill" cx="40" cy="40" r="35" style="stroke-dashoffset: 176;"/>
+              </svg>
+              <div class="capacity-pct">15%</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-rows">
+          <div class="card-row">
+            <span class="row-label">Reserved capacity</span>
+            <span class="row-value">20 hrs</span>
+          </div>
+          <div class="card-row">
+            <span class="row-label">Active involvement</span>
+            <span class="row-value">~15% of my time</span>
+          </div>
+          <div class="card-row">
+            <span class="row-label">Response SLA</span>
+            <span class="row-value">1 business day</span>
+          </div>
+          <div class="card-row">
+            <span class="row-label">Additional capacity rate</span>
+            <span class="row-value">$250 / hr</span>
+          </div>
+        </div>
+        <p class="card-note">Best for: businesses starting to invest in real reporting and data hygiene, with steady month-over-month improvement.</p>
+      </div>
+
+      <!-- MOMENTUM -->
+      <div class="tier-card" data-tier="2">
+        <div class="card-top">
+          <div>
+            <div class="card-tier-name">Momentum</div>
             <div class="card-price">$8,000<span>/mo</span></div>
             <div class="card-tagline">Active involvement at a steady, manageable pace.</div>
           </div>
@@ -1107,9 +1202,9 @@ footer {
             <div class="capacity-bar-bg">
               <svg class="capacity-svg" viewBox="0 0 80 80">
                 <circle class="capacity-track" cx="40" cy="40" r="35"/>
-                <circle class="capacity-fill" cx="40" cy="40" r="35" style="stroke-dashoffset: 165;"/>
+                <circle class="capacity-fill" cx="40" cy="40" r="35" style="stroke-dashoffset: 154;"/>
               </svg>
-              <div class="capacity-pct">25%</div>
+              <div class="capacity-pct">30%</div>
             </div>
           </div>
         </div>
@@ -1121,11 +1216,11 @@ footer {
           </div>
           <div class="card-row">
             <span class="row-label">Active involvement</span>
-            <span class="row-value">~25% of my time</span>
+            <span class="row-value">~30% of my time</span>
           </div>
           <div class="card-row">
             <span class="row-label">Response SLA</span>
-            <span class="row-value">1 business day</span>
+            <span class="row-value">Same day</span>
           </div>
           <div class="card-row">
             <span class="row-label">Additional capacity rate</span>
@@ -1136,7 +1231,7 @@ footer {
       </div>
 
       <!-- GROWTH -->
-      <div class="tier-card" data-tier="2">
+      <div class="tier-card" data-tier="3">
         <div class="card-top">
           <div>
             <div class="card-tier-name">Growth</div>
@@ -1175,47 +1270,6 @@ footer {
         </div>
         <p class="card-note">Best for: active deployments, migrations, or building out data capability. Enough hours to make real progress every month.</p>
       </div>
-
-      <!-- EMBEDDED -->
-      <div class="tier-card" data-tier="3">
-        <div class="card-top">
-          <div>
-            <div class="card-tier-name">Embedded</div>
-            <div class="card-price">$19,500<span>/mo</span></div>
-            <div class="card-tagline">Near-dedicated involvement for a focused crunch phase.</div>
-          </div>
-          <div class="capacity-wrap">
-            <div class="capacity-label">My time</div>
-            <div class="capacity-bar-bg">
-              <svg class="capacity-svg" viewBox="0 0 80 80">
-                <circle class="capacity-track" cx="40" cy="40" r="35"/>
-                <circle class="capacity-fill" cx="40" cy="40" r="35" style="stroke-dashoffset: 55;"/>
-              </svg>
-              <div class="capacity-pct">75%</div>
-            </div>
-          </div>
-        </div>
-        <div class="card-divider"></div>
-        <div class="card-rows">
-          <div class="card-row">
-            <span class="row-label">Reserved capacity</span>
-            <span class="row-value">100 hrs</span>
-          </div>
-          <div class="card-row">
-            <span class="row-label">Active involvement</span>
-            <span class="row-value">~75% of my time</span>
-          </div>
-          <div class="card-row">
-            <span class="row-label">Response SLA</span>
-            <span class="row-value">Same day</span>
-          </div>
-          <div class="card-row">
-            <span class="row-label">Additional capacity rate</span>
-            <span class="row-value">$250 / hr</span>
-          </div>
-        </div>
-        <p class="card-note">Best for: time-sensitive deployments that need to get done right, quickly. Typically temporary before stepping down to Growth or Starter.</p>
-      </div>
     </div>
 
     <!-- ALWAYS INCLUDED -->
@@ -1231,7 +1285,7 @@ footer {
       </div>
     </div>
 
-    <p class="tiers-note">Tiers step up or down with <strong>30 days notice</strong>. If priorities exceed reserved capacity, additional work is approved first and billed at <strong>$250/hr</strong>. Unused capacity does not roll over.</p>
+    <p class="tiers-note">Tiers step up or down with <strong>15 days notice</strong>. If priorities exceed reserved capacity, additional work is approved first and billed at <strong>$250/hr</strong>. Unused capacity does not roll over.</p>
   </div>
 </section>
 
@@ -1277,6 +1331,53 @@ footer {
     </div>
   </div>
 </section>
+
+<div class="section-divider"></div>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <p class="section-eyebrow">FAQ</p>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Why a retainer model instead of fixed-scope project work?</summary>
+        <div class="faq-answer">
+          <ul>
+            <li><strong>Scoping is an expensive illusion:</strong> In four years of consulting, I've watched project after project burn weeks on upfront, building a plan that feels precise but rarely is. The truth is, you can't know the right questions or spot the real challenges until you're actually in the data. That scoping time isn't free; the client pays for it either way. The highest-ROI move is to skip the theater and start working. A retainer lets us do that — real progress from week one, with the plan adapting as we learn instead of being locked in before we know enough to make it good.</li>
+            <li><strong>Data work rarely has a clean end:</strong> Once people use a solution, requirements change. Sources, processes, and reporting needs evolve, so continuity matters.</li>
+            <li><strong>You keep control:</strong> If you need less support, scale down to the lowest tier or pause. If priorities return, scale back up monthly.</li>
+          </ul>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>What happens in the first 30 days?</summary>
+        <div class="faq-answer">
+          I start by getting hands-on in your environment — reviewing your Fabric/Power BI/Azure setup, existing reports, and data flows to see what's actually happening, not just what's documented. In parallel, we have a conversation about what's urgent versus what's nice-to-have. By the end of the first month, you'll have a clear view of what's broken, what's solid, and where I'm focusing first. No lengthy discovery phase — you'll see real work land in week one.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Can I cancel or pause anytime?</summary>
+        <div class="faq-answer">
+          Yes. Tiers step up or down with 15 days notice, and you can pause the engagement entirely if you don't need active support for a while. There's no long-term lock-in — if the work isn't earning its keep, you shouldn't be paying for it. If priorities come back, we pick back up on a monthly basis.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>How do we communicate, and who am I actually working with?</summary>
+        <div class="faq-answer">
+          You're working directly with me. Day-to-day, we typically use whatever channel already works for your team (email, Teams, Slack), plus scheduled check-ins depending on your tier. No account managers or middle layers translating your ask into someone else's work.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>How do you handle data security and access?</summary>
+        <div class="faq-answer">
+          You control access at all times — I work within the permissions you grant, following your existing identity and security policies rather than asking you to loosen them for my convenience. Where it makes sense, I'll recommend tighter governance as part of the engagement, not just consume access. If your organization requires an NDA or specific security review before I touch anything, that's a normal part of getting started.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
 
 <!-- CONTACT -->
 <section id="contact">
@@ -1350,8 +1451,8 @@ footer {
   const cards = document.querySelectorAll('.tier-card');
   const labels = document.querySelectorAll('.tier-label');
 
-  const capacityOffsets = [209, 165, 110, 55];
-  const capacityPcts = ['5%', '25%', '50%', '75%'];
+  const capacityOffsets = [209, 187, 154, 110];
+  const capacityPcts = ['5%', '15%', '30%', '50%'];
 
   function setTier(val) {
     const pct = (val / 3) * 100;
